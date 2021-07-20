@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Преподаватели</title>
+</head>
+<body>
+    <h1>Преподаватели и ученики:</h1>
+    <div>
+        <a hrеf="/teachers/">Список преподавателей:</a>
+        {% for teacher in teachers %}
+        <a href="/students_by_teacher/{{teacher.pk}}/">{{teacher.surname}} {{teacher.name}}</a>
+        {% endfor %}
+    </div>
+    <p>Список учеников:</p>
+    {% for student in students %}
+    <div>
+        <h2>{{student.surname}} {{student.name}}</h2>
+        <p>Предмет:
+            {% for contract in contracts %}
+                {% if student.pk == contract.student.pk %}
+                    <a>{{contract.get_kind_display}}</a>
+                {% endif %}
+            {% endfor %}
+        </p>Преподаватель:
+            {% for contract in contracts %}
+                {% if student.pk == contract.student.pk %}
+                    <a href="/students_by_teacher/{{contract.teacher.pk}}/">{{contract.teacher.surname}} {{contract.teacher.name}}</a>
+                {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+    {% endfor %}
+</body>
+</html>

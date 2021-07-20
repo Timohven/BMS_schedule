@@ -1,0 +1,14 @@
+﻿@charset "utf-8";
+body {
+  margin: 0px;
+  padding: 0px;
+}
+#main table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#main table td, #main table th {
+  border: 1px #666666 solid;
+  padding: 5px;
+}
+
