@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список преподавателей с учениками</title>
+</head>
+<body>
+    <h2>Ученики</h2>
+    <h1>Преподаватель: {{ current_teacher.surname }}</h1>
+    <div>
+        <a hrеf="/students_by_teacher/"> Выберете преподавателя:</a>
+        {% for teacher in teachers %}
+        <a href="/students_by_teacher/{{teacher.pk}}/">{{ teacher.surname }}</a>
+        {% endfor %}
+    </div>
+    {% for student in students %}
+    <div>
+        <h2>{{ student.name }} {{ student.surname }}</h2>
+    </div>
+    {% endfor %}
+</body>
+</html>
