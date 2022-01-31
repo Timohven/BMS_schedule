@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма изменения данных ученика</title>
+</head>
+<body>
+    <form  method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Применить" name="sub" />
+    <input type="submit" value="Удалить" name="del" />
+</form>
+</body>
+</html>

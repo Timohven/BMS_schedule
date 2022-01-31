@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма изменения расписания</title>
+</head>
+<body>
+<form  method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+<!--    <a href="{{schedule_id}}">Удалить</a>-->
+<!--    <button name="submet">изменить расписание</button>-->
+<!--    <button name="del">удалить</button>-->
+    <input type="submit" value="Применить" name="sub" />
+    <input type="submit" value="Удалить" name="del" />
+</form>
+</body>
+</html>

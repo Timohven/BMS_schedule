@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <title>Список преподавателей с учениками</title>
 </head>
+<style>
+    .menu {
+        left: 10px;
+        bottom: 2%;
+        position: fixed;
+    }
+</style>
 <body>
+    <div class="menu"><a href="/">/На главную</a></div>
     <h2>Ученики</h2>
     <h1>Преподаватель: {{ current_teacher.surname }}</h1>
     <div>

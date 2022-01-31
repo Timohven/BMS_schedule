@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from schedule.views import index, teachers_view, students_by_teacher, schedule_main, add_schedule, edit_schedule, add_time_schedule
+from schedule.views import index, teachers_view, students_by_teacher, schedule_main, add_schedule, edit_schedule, add_time_schedule, add_student, clone_next_week
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,8 +29,10 @@ urlpatterns = [
 #    re_path(r'students_by_teacher/(?:\teach_id=(?P<teach_id>\d{1,2})/)?', students_by_teacher),
     path('schedule/', schedule_main),
     path('editing/', admin.site.urls),
-    path('add_schedule/', add_schedule),
+    #path('add_schedule/', add_schedule),
     path('schedule/<int:schedule_id>/', edit_schedule),
     path('add_time_schedule/<str:timeplace>/', add_time_schedule),
-
+    #path('add_student/', add_student),
+    path('another_week/<int:cur_week>/', schedule_main),
+    path('clone_next_week/', clone_next_week),
 ]

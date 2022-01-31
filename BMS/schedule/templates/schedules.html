@@ -6,39 +6,59 @@
     <meta charset="UTF-8">
     <title>Расписание</title>
 </head>
+<style>
+    #header-row { position: sticky; top:0; left:0; }
+    .menu {
+        left: 10px;
+        bottom: 2%;
+        position: fixed;
+    }
+</style>
+
 <body>
+    <div class="menu">
+        <a href="/another_week/{{prev_week}}">Предыдущая/</a>
+        Неделя №{{cur_week}}
+        <a href="/another_week/{{next_week}}">/Следующая</a>
+        <a href="/">/На главную</a>
+    </div>
     <div id="main">
     <table>
-        <tr>
-            <th>ДН</th>
-            <th>Кабинет</th>
+        <tr id="header-row">
+            <th style='width: 2%;'>ДН</th>
+            <th style='width: 4.5%;'>  Кабинет  </th>
             {% for hour in hours %}
-                <th> {{hour}} </th>
+                <th style='width: 8.5%;'> {{hour}} </th>
             {% endfor %}
         </tr>
+
         <tr>
         {% for day in days %}
-            <th><a>{{day}}</a></th>
+            <th style='width: 2%;'><a>{{day}}</a></th>
 
             {% for office in offices %}
-                <th><a>{{office}}</a></th>
+                <th style='width: 4.5%;'><a>{{office}}</a></th>
                 {% for hour in hours %}
-                    <td>
+                    <td style='width: 8.5%;'>
                     {% for schedule in schedules %}
                         {% if schedule.time.weekday == day.name and schedule.office == office and schedule.time.hour == hour.name %}
-                            {% if schedule.state != 1 %}
-                                <p style="background-color:red"><a href="/schedule/{{schedule.id}}"> {{schedule}}</a></p>
-                            {% else %}
+                            {% if schedule.state == 1 %}
                                 <p style="background-color:yellow"><a href="/schedule/{{schedule.id}}"> {{schedule}}</a></p>
+                            {% else %}
+                                {% if schedule.state == 2 %}
+                                    <p style="background-color:green"><a href="/schedule/{{schedule.id}}"> {{schedule}}</a></p>
+                                {% else %}
+                                    <p style="background-color:red"><a href="/schedule/{{schedule.id}}"> {{schedule}}</a></p>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    <p><a href="/add_time_schedule/{{day}}{{hour}}{{office}}">+</a></p>
+                    <p><a href="/add_time_schedule/{{day}}{{hour}}{{office}} {{cur_week}}">+</a></p>
                     </td>
                 {% endfor %}
                 </tr>
                 {% if not forloop.last %}
-                    <td>-</td>
+                    <td style='width: 2%;'>-</td>
                 {% endif %}
             {% endfor %}
         {% endfor %}
