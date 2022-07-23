@@ -1,9 +1,9 @@
-from django.http import HttpResponse
 from datetime import datetime, timedelta
 from isoweek import Week
 from django.shortcuts import render, redirect
 from schedule.models import Teacher, Student, Contract, Office, Schedule, Day, Hour
 from schedule.forms import ScheduleForm, StudentForm
+from import_DB import clone_week
 
 CURRENT_WEEK = datetime.today().isocalendar()[1]
 CURRENT_DAY = datetime.today().isocalendar()[2]
@@ -48,6 +48,7 @@ def schedule_main(request, cur_week=CURRENT_WEEK):
     cur_sun = Week(2022, week+1).monday()
     print("диапазон=",cur_mon,"-",cur_sun)
     schedules = Schedule.objects.filter(time__range=[cur_mon, cur_sun])
+    print([cur_mon, cur_sun])
     print(schedules)
     contracts = Contract.objects.all()
     offices = Office.objects.all()
@@ -58,9 +59,14 @@ def schedule_main(request, cur_week=CURRENT_WEEK):
     return render(request, 'schedules.html', context)
 
 def clone_next_week(request):
-    context = {'schedules': schedules, 'contracts': contracts, 'offices': offices, 'hours': hours, 'days': days,
-               'cur_week': week, 'prev_week': prev_week, 'next_week': next_week}
-    return render(request, 'schedules.html', context)
+    #schedules = Schedule.objects.filter(time__range=[CURRENT_MONDAY, CURRENT_SUNDAY])
+    #for schedule in schedules:
+    clone_week(CURRENT_MONDAY, CURRENT_SUNDAY)
+
+    # context = {'schedules': schedules, 'contracts': contracts, 'offices': offices, 'hours': hours, 'days': days,
+    #            'cur_week': week, 'prev_week': prev_week, 'next_week': next_week}
+    context = {'current_week': CURRENT_WEEK}
+    return render(request, 'index.html', context)
 
 def edit_schedule(request, schedule_id):
     schedule = Schedule.objects.get(pk=schedule_id)
