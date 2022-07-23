@@ -73,7 +73,7 @@ env.sh
 
 commonstatic/*
 
-db.sqlite3
+#db.sqlite3
 
 env/
 .env/
